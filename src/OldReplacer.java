@@ -1,17 +1,20 @@
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-
 public class OldReplacer {
-    public static void replace(File file) throws IOException {
-        var scIn = new Scanner(file);
-        while (scIn.hasNext()) {
-            var aLine = new StringBuilder(scIn.nextLine());
+    public static StringBuilder replace(StringBuilder text) {
+        String[] stringLines = text.toString().split("\\n");
+        int linesCount = 6;
+        for (int i = 0; i < linesCount; i++) {
+            var aLine = new StringBuilder(stringLines[i]);
             SharpAdd.addOn(aLine);
             NewLineSignAdd.addOn(aLine);
-            System.out.println(aLine);
-
+            if (i == 5) {
+                stringLines[i] = aLine.append("\n___").toString();
+            }
+            stringLines[i] = aLine.toString();
         }
-        System.out.println("___");
+        var changedText = new StringBuilder();
+        for (String line : stringLines) {
+            changedText.append(line).append("\n");
+        }
+        return changedText;
     }
 }
