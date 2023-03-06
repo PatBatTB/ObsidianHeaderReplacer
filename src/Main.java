@@ -1,22 +1,24 @@
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        var file = new File("input.md");
-        var scIn = new Scanner(file);
-        var text = new StringBuilder();
-        while (scIn.hasNext()) {
-            text.append(scIn.nextLine()).append("\n");
+        String directoryPath = "./files";
+        File dir = new File(directoryPath);
+        showFiles(dir.listFiles());
+
+    }
+
+    public static void showFiles(File[] files) throws IOException {
+        if (files.length == 0) {
+            System.out.println("Files not found.");
         }
-        scIn.close();
-
-        text = Switcher.switchReplacer(Dispenser.isNoteNew(text), text);
-
-        var pw = new PrintWriter(file);
-        pw.write(text.toString());
-        pw.close();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                showFiles(file.listFiles()); // Calls same method again.
+            } else if (file.getName().endsWith(".md")) {
+                FileHandler.execute(file);
+            }
+        }
     }
 }
