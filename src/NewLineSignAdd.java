@@ -1,6 +1,6 @@
 public class NewLineSignAdd {
     public static void addOn(StringBuilder aLine) {
-        if (aLine.charAt(0) == '#') {
+        if (aLine.toString().startsWith("#")) {
             int index = aLine.indexOf(":");
             if (aLine.length() <= index + 1) {
                 aLine.append("\n");

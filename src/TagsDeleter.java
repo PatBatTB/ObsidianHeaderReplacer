@@ -1,6 +1,6 @@
 public class TagsDeleter {
     public static void delete(StringBuilder aLine) {
-        if (aLine.charAt(0) == '#') {
+        if (aLine.toString().startsWith("#")) {
             boolean isFound = true;
             while (isFound) {
                 int startIndex = aLine.indexOf("<");

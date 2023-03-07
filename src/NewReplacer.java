@@ -1,9 +1,12 @@
 public class NewReplacer {
     public static StringBuilder replace(StringBuilder text){
         String[] stringLines = text.toString().split("\\n");
-        int linesCount = 7;
+        int linesCount = Math.min(stringLines.length, 7);
         for (int i = 0; i < linesCount; i++) {
             var aLine = new StringBuilder(stringLines[i]);
+            if (aLine.isEmpty()) {
+                continue;
+            }
             SharpReplacer.replace(aLine);
             TagsDeleter.delete(aLine);
             NewLineSignAdd.addOn(aLine);

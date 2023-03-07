@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class FileHandler {
     public static void execute(File file) throws IOException {
+        System.out.println(file.getAbsoluteFile());
         var scIn = new Scanner(file);
         var text = new StringBuilder();
         while (scIn.hasNext()) {

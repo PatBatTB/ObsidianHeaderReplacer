@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String directoryPath = "./files";
+        String directoryPath = "./files/";
         File dir = new File(directoryPath);
         showFiles(dir.listFiles());
 
@@ -15,7 +15,7 @@ public class Main {
         }
         for (File file : files) {
             if (file.isDirectory()) {
-                showFiles(file.listFiles()); // Calls same method again.
+                showFiles(file.listFiles());
             } else if (file.getName().endsWith(".md")) {
                 FileHandler.execute(file);
             }
