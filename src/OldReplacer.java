@@ -1,23 +1,20 @@
+import java.util.List;
+
 public class OldReplacer {
-    public static StringBuilder replace(StringBuilder text) {
-        String[] stringLines = text.toString().split("\\n");
-        int linesCount = Math.min(stringLines.length, 6);
+    public static List<String> replace(List<String> text) {
+        int linesCount = Math.min(text.size(), 6);
         for (int i = 0; i < linesCount; i++) {
-            var aLine = new StringBuilder(stringLines[i]);
+            var aLine = new StringBuilder(text.get(i));
             if (aLine.isEmpty()) {
                 continue;
             }
             SharpAdd.addOn(aLine);
             NewLineSignAdd.addOn(aLine);
             if (i == 5) {
-                stringLines[i] = aLine.append("\n___").toString();
+                text.set(i, aLine.append("\n___").toString());
             }
-            stringLines[i] = aLine.toString();
+            text.set(i, aLine.toString());
         }
-        var changedText = new StringBuilder();
-        for (String line : stringLines) {
-            changedText.append(line).append("\n");
-        }
-        return changedText;
+        return text;
     }
 }

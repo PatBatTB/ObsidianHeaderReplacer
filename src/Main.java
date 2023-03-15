@@ -1,24 +1,21 @@
-import java.io.File;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        String directoryPath = "./files/";
-        File dir = new File(directoryPath);
-        showFiles(dir.listFiles());
+    public static void main(String[] args) {
+        String directoryPath = "./files";
+        String fileExtension = ".md";
 
-    }
-
-    public static void showFiles(File[] files) throws IOException {
-        if (files.length == 0) {
-            System.out.println("Files not found.");
+        Path dir = Path.of(directoryPath);
+        if (!Files.isDirectory(dir)) {
+            throw new IllegalArgumentException("It's not a folder.");
         }
-        for (File file : files) {
-            if (file.isDirectory()) {
-                showFiles(file.listFiles());
-            } else if (file.getName().endsWith(".md")) {
-                FileHandler.execute(file);
-            }
+
+        List<Path> fileList = FileScanner.getList(dir, fileExtension);
+
+        for (Path file : fileList) {
+            FileHandler.execute(file);
         }
     }
 }

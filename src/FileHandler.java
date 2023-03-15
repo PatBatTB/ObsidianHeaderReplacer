@@ -1,22 +1,12 @@
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
+import java.nio.file.Path;
+import java.util.List;
 
 public class FileHandler {
-    public static void execute(File file) throws IOException {
-        System.out.println(file.getAbsoluteFile());
-        var scIn = new Scanner(file);
-        var text = new StringBuilder();
-        while (scIn.hasNext()) {
-            text.append(scIn.nextLine()).append("\n");
-        }
-        scIn.close();
+    public static void execute(Path file) {
+        System.out.println(file.toAbsolutePath().normalize());
 
+        List<String> text = Reader.read(file);
         text = Switcher.switchReplacer(Dispenser.isNoteNew(text), text);
-
-        var pw = new PrintWriter(file);
-        pw.write(text.toString());
-        pw.close();
+        Writer.write(file, text);
     }
 }
